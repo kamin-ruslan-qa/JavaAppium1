@@ -1,0 +1,1 @@
+emulator @adb80
