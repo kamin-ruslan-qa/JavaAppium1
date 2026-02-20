@@ -62,6 +62,8 @@ public class ArticleTest extends CoreTestCase
         SearchPageObject.typeSearchLine("Appium");
 
         MyListPageObject MyListPageObject = MyListPageObjectFactory.get(driver);
+
+
         MyListPageObject.clickArticle("Appium");
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);

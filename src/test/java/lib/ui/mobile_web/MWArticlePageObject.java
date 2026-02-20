@@ -13,6 +13,7 @@ public class MWArticlePageObject extends ArticlePageObject
 //        SAVE_BUTTON = "id:org.wikipedia:id/page_save";
         OPTIONS_ADD_TO_MY_LIST_BUTTON = "css:#page-actions-watch";
         OPTIONS_REMOVE_FROM_MY_LIST_BUTTON = "css:#page-actions-watch.watched";
+        TITLE_MW = "xpath://a[@href='/wiki/Java_(programming_language)']";
 //        MY_LIST_NAME_INPUT = "id:org.wikipedia:id/text_input";
 //        MY_LIST_OK_BUTTON = "xpath://*[@text='OK']";
     }

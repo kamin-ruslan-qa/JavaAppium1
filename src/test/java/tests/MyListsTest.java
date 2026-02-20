@@ -76,45 +76,82 @@ public class MyListsTest extends CoreTestCase {
         {
             SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
-//   Сохраняем статью Java
             SearchPageObject.initSearchInput();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             SearchPageObject.typeSearchLine("Java");
             SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
 
             ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
             ArticlePageObject.waitForTitleElement();
-            String article_title = ArticlePageObject.getArticleTitle();
             name_of_folder = "Learning programming";
-            ArticlePageObject.addArticleToMyList(name_of_folder);
+            String article_title = ArticlePageObject.getArticleTitle();
 
-            NavigationUI NavigationUI = NavigationUIFactory.get(driver);
-            NavigationUI.clickMyList();
+            if (Platform.getInstance().isAndroid()) {
+                ArticlePageObject.addArticleToMyList(name_of_folder);
 
-            SearchPageObject.clickCancelsTheSearch();
+            } else {
+                ArticlePageObject.addArticleToMySaved();
+            }
 
-            //   Сохраняем статью Appium
-            SearchPageObject.initSearchInput();
-            SearchPageObject.typeSearchLine("Appium");
-            SearchPageObject.clickByArticleWithSubstring("Appium");
+            if (Platform.getInstance().isMW()) {
+                AuthorizationPageObject Auth = new AuthorizationPageObject(driver);
 
-            ArticlePageObject.waitForTitleElement();
-            ArticlePageObject.addArticleToExistingList(name_of_folder);
+                Auth.clickAuthButton();
+                Auth.enterLoginData(login, password);
+                Auth.submitForm();
 
-            //Переходим в раздел "Saved"
-            NavigationUI.clickMyList();
-            NavigationUI.clickMyList();
-            NavigationUI.clickSaved();
+                ArticlePageObject.addArticleToMySaved();
 
-            //Удаляем статью Appium
-            MyListPageObject MyListPageObject = MyListPageObjectFactory.get(driver);
-            MyListPageObject.clickNotNow();
-            MyListPageObject.openFolderByName(name_of_folder);
-            MyListPageObject.swipeArticleToDelete("Appium");
-            MyListPageObject.waitForArticleToAppearByTitle(article_title);
-            MyListPageObject.clickArticle("Java (programming language)");
+                // Сохраняем статью Appium
+                SearchPageObject.initSearchInput();
+                try {
+                    Thread.sleep(1000); // небольшая пауза
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                SearchPageObject.typeSearchLine("Appium");
+                SearchPageObject.clickByArticleWithSubstring("Automation for Apps");
 
-            //Переходим в неё и убеждаемся, что title совпадает
-            ArticlePageObject.waitForTitleElement();
+                ArticlePageObject.waitForTitleElement();
+
+                if (Platform.getInstance().isAndroid()) {
+
+                    ArticlePageObject.addArticleToMyList(name_of_folder);
+
+                } else {
+                    ArticlePageObject.addArticleToMySaved();
+
+                    NavigationUI NavigationUI = NavigationUIFactory.get(driver);
+                    NavigationUI.OpenNavigation();
+                    NavigationUI.clickMyList();
+                    NavigationUI.closeArticle();
+
+                    //Удаляем статью Java
+                    MyListPageObject MyListPageObject = MyListPageObjectFactory.get(driver);
+
+                    if (Platform.getInstance().isAndroid()) {
+                        MyListPageObject.clickNotNow();
+                        MyListPageObject.openFolderByName(name_of_folder);
+                        MyListPageObject.swipeArticleToDelete("Appium");
+                        MyListPageObject.waitForArticleToAppearByTitle(article_title);
+                    }
+
+                    MyListPageObject.swipeArticleToDelete("Appium");
+
+
+                    //Переходим в неё и убеждаемся, что URL совпадает
+                        MyListPageObject.clickArticle("Java (programming language)");
+
+                        ArticlePageObject.verifyUrlMatches();
+                        ArticlePageObject.waitForTitleElement();
+
+
+                }
+            }
         }
     }
 }

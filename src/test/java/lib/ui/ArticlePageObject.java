@@ -14,7 +14,8 @@ abstract public class ArticlePageObject extends MainPageObject {
             OPTIONS_ADD_TO_MY_LIST_BUTTON,
             OPTIONS_REMOVE_FROM_MY_LIST_BUTTON,
             MY_LIST_NAME_INPUT,
-            MY_LIST_OK_BUTTON;
+            MY_LIST_OK_BUTTON,
+            TITLE_MW;
 //            APPIUM_ARTICLE_TITLE;
 
 
@@ -30,8 +31,7 @@ abstract public class ArticlePageObject extends MainPageObject {
         }
     }
 
-    public String getArticleTitle()
-    {
+    public String getArticleTitle() {
         WebElement title_element = waitForTitleElement();
         if (Platform.getInstance().isAndroid()) {
             return title_element.getAttribute("text");
@@ -89,6 +89,7 @@ abstract public class ArticlePageObject extends MainPageObject {
                 5
         );
     }
+
     public void addArticleToExistingList(String folderName) {
         waitForElementAndClick(
                 SAVE_BUTTON,
@@ -131,4 +132,13 @@ abstract public class ArticlePageObject extends MainPageObject {
             );
         }
     }
-}
+        public void verifyUrlMatches () {
+            if (Platform.getInstance().isMW()) {
+                this.waitForElementPresent(
+                        TITLE_MW,
+                        "Cannot find URL title",
+                        5
+                );
+            }
+        }
+    }

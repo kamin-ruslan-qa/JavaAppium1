@@ -21,6 +21,7 @@ public class MWSearchPageObject extends SearchPageObject {
         SEARCH_RESULTS_LIST = "id:org.wikipedia:id/search_results_list";
         SEARCH_RESULTS_ITEM = "xpath://*[@resource-id='org.wikipedia:id/search_results_list']/android.view.ViewGroup";
         SEARCH_CANCEL_BUTTON_THE_CROSS = "id:org.wikipedia:id/search_close_btn";
+
     }
 
     public MWSearchPageObject(RemoteWebDriver driver)

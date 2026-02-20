@@ -1,7 +1,11 @@
 package lib.ui;
 
 import lib.Platform;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
+
+import java.util.List;
 
 abstract public class MyListPageObject extends lib.ui.MainPageObject {
     public static String
@@ -10,20 +14,19 @@ abstract public class MyListPageObject extends lib.ui.MainPageObject {
             ARTICLE_BY_TITLE_TPL,
             REMOVE_FROM_SAVED_BUTTON;
 
-    public static String getFolderXpathByName(String name_of_folder)
-    {
+    public static String getFolderXpathByName(String name_of_folder) {
         return FOLDER_BY_NAME_TPL.replace("{FOLDER_NAME}", name_of_folder);
     }
-    private static String getSaveArticleXpathByTitle(String article_title)
-    {
+
+    private static String getSaveArticleXpathByTitle(String article_title) {
         return ARTICLE_BY_TITLE_TPL.replace("{TITLE}", article_title);
     }
-    private static String getRemoveButtonByTitle(String article_title)
-    {
+
+    private static String getRemoveButtonByTitle(String article_title) {
         return REMOVE_FROM_SAVED_BUTTON.replace("{TITLE}", article_title);
     }
 
-   public MyListPageObject(RemoteWebDriver driver) {
+    public MyListPageObject(RemoteWebDriver driver) {
         super(driver);
     }
 
@@ -34,6 +37,7 @@ abstract public class MyListPageObject extends lib.ui.MainPageObject {
                 5
         );
     }
+
     public void openFolderByName(String name_of_folder) {
         String folder_name_xpath = getFolderXpathByName(name_of_folder);
         this.waitForElementAndClick(
@@ -42,6 +46,7 @@ abstract public class MyListPageObject extends lib.ui.MainPageObject {
                 15
         );
     }
+
     public void waitForArticleToAppearByTitle(String article_title) {
         String article_xpath = getSaveArticleXpathByTitle(article_title);
         this.waitForElementPresent(
@@ -50,6 +55,7 @@ abstract public class MyListPageObject extends lib.ui.MainPageObject {
                 15
         );
     }
+
     public void waitForArticleToDisappearByTitle(String article_title) {
         String article_xpath = getSaveArticleXpathByTitle(article_title);
         this.waitForElementNotPresent(
@@ -58,21 +64,22 @@ abstract public class MyListPageObject extends lib.ui.MainPageObject {
                 15
         );
     }
+
     public void swipeArticleToDelete(String article_title) {
         this.waitForArticleToAppearByTitle(article_title);
         String article_xpath = getSaveArticleXpathByTitle(article_title);
 
         if (Platform.getInstance().isIOS() || Platform.getInstance().isAndroid()) {
-        this.swipeElementToLeft(
-                article_xpath,
-                "Cannot find saved article to delete"
+            this.swipeElementToLeft(
+                    article_xpath,
+                    "Cannot find saved article to delete"
             );
         } else {
             String remove_locator = getRemoveButtonByTitle(article_title);
             this.waitForElementAndClick(
-                remove_locator,
-                "Cannot click button to remove article from saved ",
-                10
+                    remove_locator,
+                    "Cannot click button to remove article from saved ",
+                    10
             );
         }
         try {
@@ -81,21 +88,19 @@ abstract public class MyListPageObject extends lib.ui.MainPageObject {
             e.printStackTrace();
         }
 
-if (Platform.getInstance().isMW()) {
-    driver.navigate().refresh();
-}
-        this.waitForArticleToDisappearByTitle(article_title);
+        if (Platform.getInstance().isMW()) {
+            driver.navigate().refresh();
+        }
+
     }
+
     public void clickArticle(String article_title)
     {
         String articleXpath = getSaveArticleXpathByTitle(article_title);
-
         this.waitForElementAndClick(
                 articleXpath,
                 "Cannot find article by title " + article_title,
                 5
         );
-
     }
-
 }
