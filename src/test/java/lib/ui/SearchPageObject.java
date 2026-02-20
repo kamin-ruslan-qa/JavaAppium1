@@ -81,6 +81,7 @@ abstract public class SearchPageObject extends lib.ui.MainPageObject {
                 20
         );
     }
+
     public void waitForSearchResult(String substring) {
         String search_result_xpath = getSearchResult(substring);
         this.waitForElementPresent(

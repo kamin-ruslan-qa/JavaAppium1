@@ -81,6 +81,11 @@ public class SearchTests extends CoreTestCase
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
         SearchPageObject.initSearchInput();
+        try {
+            Thread.sleep(1000); // небольшая пауза
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         SearchPageObject.typeSearchLine("Java");
         SearchPageObject.waitForSearchResult("Java");
         SearchPageObject.waitForElementByTitleAndDescription("Java", "Region and island in Indonesia");
