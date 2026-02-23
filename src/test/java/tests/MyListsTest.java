@@ -1,5 +1,7 @@
 package tests;
 
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.Platform;
 import lib.ui.*;
@@ -10,6 +12,7 @@ import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
+@Epic("Wikipedia Application")
 public class MyListsTest extends CoreTestCase {
     private static final String name_of_folder = "Learning programming";
     private static final String
@@ -17,6 +20,11 @@ public class MyListsTest extends CoreTestCase {
             password = "Ha367!!Ti2022";
 
     @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Save first article to reading list and verify it's saved")
+    @Step("Saving first article to reading list")
+    @DisplayName("Save first article to list test")
+    @Features({@Feature("Reading Lists"), @Feature("Save Article")})
     public void testSaveFirstToMyList() {
         {
             SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
@@ -72,6 +80,11 @@ public class MyListsTest extends CoreTestCase {
     }
 
     @Test
+    @Severity(SeverityLevel.BLOCKER)
+    @Description("Save multiple articles to reading list and verify they persist")
+    @Step("Saving and verifying multiple articles in reading list")
+    @DisplayName("Save multiple articles test")
+    @Features({@Feature("Reading Lists"), @Feature("Multiple Articles"), @Feature("Cross-platform")})
     public void testSaveFirstArticleToMyList() {
         String name_of_folder;
         {

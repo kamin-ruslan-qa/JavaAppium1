@@ -124,7 +124,7 @@ abstract public class SearchPageObject extends lib.ui.MainPageObject {
         );
 
     }
-
+@Step("Counting several articles found for search query: '{search_results}'")
     public int SeveralArticlesWereFound(String search_results) {
         this.waitForElementPresent(
                 SEARCH_RESULTS_LIST,
@@ -135,7 +135,7 @@ abstract public class SearchPageObject extends lib.ui.MainPageObject {
         List<WebElement> searchResults = driver.findElements(itemLocator);
         return searchResults.size();
     }
-
+    @Step("Clicking cancel button (X) to clear search")
     public void clickCancelsTheSearch() {
         this.waitForElementAndClick(
                 SEARCH_CANCEL_BUTTON_THE_CROSS,
@@ -143,7 +143,7 @@ abstract public class SearchPageObject extends lib.ui.MainPageObject {
                 5
         );
     }
-
+    @Step("Verifying that search results are missing after cancellation")
     public void TheSearchResulIsMissing() {
         this.waitForElementNotPresent(
                 SEARCH_RESULTS_LIST,
@@ -151,7 +151,7 @@ abstract public class SearchPageObject extends lib.ui.MainPageObject {
                 5
         );
     }
-
+    @Step("Waiting for article with title: '{title}' and description: '{description}'")
     public void waitForElementByTitleAndDescription(String title, String description) {
         String search_result_xpath = SEARCH_RESULT_BY_TITLE_AND_DESCRIPTION_TPL.replace("{TITLE}", title).replace("{DESCRIPTION}", description);
         this.waitForElementPresent(

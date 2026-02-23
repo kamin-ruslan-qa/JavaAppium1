@@ -13,14 +13,14 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <aspectj.version>1.9.22</aspectj.version>
-        <allure.version>2.8.1</allure.version>
+        <allure.version>2.13.8</allure.version>
         <junit.version>4.13.2</junit.version>
         <appium.version>7.6.0</appium.version>
         <selenium.version>3.141.59</selenium.version>
     </properties>
 
     <dependencies>
-
+        <!-- JUnit 4 (только одна зависимость!) -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -28,7 +28,7 @@
             <scope>test</scope>
         </dependency>
 
-
+        <!-- Appium Java Client -->
         <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
@@ -41,14 +41,14 @@
             </exclusions>
         </dependency>
 
-
+        <!-- Selenium -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
         </dependency>
 
-
+        <!-- Allure for JUnit 4 -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit4</artifactId>
@@ -56,14 +56,14 @@
             <scope>test</scope>
         </dependency>
 
-
+        <!-- AspectJ -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj.version}</version>
         </dependency>
 
-
+        <!-- Логирование -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>

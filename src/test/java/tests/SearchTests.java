@@ -1,14 +1,23 @@
 package tests;
 
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.ui.SearchPageObject;
 import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
+
+@Epic("Wikipedia Application")
 public class SearchTests extends CoreTestCase
 {
     @Test
+    @Severity(SeverityLevel.BLOCKER)
+    @Description("Verify that search returns results for valid query")
+    @Step("Executing search and verifying results")
+    @DisplayName("Basic search test")
+    @Features({@Feature("Search"), @Feature("Results Validation")})
     public void testSearch()
     {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
@@ -24,6 +33,11 @@ public class SearchTests extends CoreTestCase
     }
 
     @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verify that search can be cancelled and results disappear")
+    @Step("Cancelling search and verifying results are gone")
+    @DisplayName("Cancel search test")
+    @Feature("Search Cancellation")
     public void testCancelSearch() {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
@@ -35,6 +49,11 @@ public class SearchTests extends CoreTestCase
 
     }
     @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Verify that search returns non-empty results for valid query")
+    @Step("Checking non-empty search results")
+    @DisplayName("Non-empty search test")
+    @Features({@Feature("Search"), @Feature("Results Count")})
     public void testAmountOfNotEmptySearch()
     {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
@@ -50,6 +69,11 @@ public class SearchTests extends CoreTestCase
     }
 
     @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Description("Verify that empty search query shows no results")
+    @Step("Checking empty search results")
+    @DisplayName("Empty search test")
+    @Features({@Feature("Search"), @Feature("Empty Results")})
     public void testAmountEmptySearch()
     {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
@@ -62,6 +86,11 @@ public class SearchTests extends CoreTestCase
 
     }
     @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verify that search results can be cancelled and disappear")
+    @Step("Searching and cancelling results")
+    @DisplayName("Search and cancel test")
+    @Features({@Feature("Search"), @Feature("Search Cancellation")})
     public void testSearchAndCancel()
     {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
@@ -78,6 +107,11 @@ public class SearchTests extends CoreTestCase
         SearchPageObject.TheSearchResulIsMissing();
     }
     @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Verify that search results have correct titles and descriptions")
+    @Step("Verifying search results by title and description")
+    @DisplayName("Search by title and description test")
+    @Features({@Feature("Search"), @Feature("Results Validation")})
     public void testSearchByTitleAndDescription() {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 

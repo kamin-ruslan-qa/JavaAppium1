@@ -134,6 +134,7 @@ abstract public class ArticlePageObject extends MainPageObject {
             );
         }
     }
+    @Step("Verifying URL matches for Mobile Web")
         public void verifyUrlMatches () {
             if (Platform.getInstance().isMW()) {
                 this.waitForElementPresent(
