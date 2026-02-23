@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -22,7 +23,7 @@ abstract public class ArticlePageObject extends MainPageObject {
     public ArticlePageObject(RemoteWebDriver driver) {
         super(driver);
     }
-
+@Step("Waiting for title on the article page")
     public WebElement waitForTitleElement() {
         try {
             return this.waitForElementPresent(TITLE_JAVA, "Cannot find article title on page!", 10);
@@ -30,9 +31,10 @@ abstract public class ArticlePageObject extends MainPageObject {
             return this.waitForElementPresent(TITLE_APP, "Cannot find article title on page!", 15);
         }
     }
-
+@Step("Get article title")
     public String getArticleTitle() {
         WebElement title_element = waitForTitleElement();
+        screenshot(this.takeScreenshot("article_title"));
         if (Platform.getInstance().isAndroid()) {
             return title_element.getAttribute("text");
         } else if (Platform.getInstance().isIOS()) {
@@ -41,7 +43,7 @@ abstract public class ArticlePageObject extends MainPageObject {
             return title_element.getText();
         }
     }
-
+@Step("Swiping to footer on article page")
     public void swipeToFooter() {
         if (Platform.getInstance().isAndroid()) {
             this.swipeUpToFindElement(
@@ -57,7 +59,7 @@ abstract public class ArticlePageObject extends MainPageObject {
             );
         }
     }
-
+@Step("Adding the article to my list")
     public void addArticleToMyList(String name_of_folder) {
         this.waitForElementAndClick(
                 SAVE_BUTTON,
@@ -89,7 +91,6 @@ abstract public class ArticlePageObject extends MainPageObject {
                 5
         );
     }
-
     public void addArticleToExistingList(String folderName) {
         waitForElementAndClick(
                 SAVE_BUTTON,
@@ -107,7 +108,7 @@ abstract public class ArticlePageObject extends MainPageObject {
                 10
         );
     }
-
+    @Step("Adding the article to my saved articles")
     public void addArticleToMySaved() {
         if (Platform.getInstance().isMW()) {
             this.removeArticleFromSavedIfItAdded();
@@ -119,6 +120,7 @@ abstract public class ArticlePageObject extends MainPageObject {
         );
 
     }
+    @Step("Removing the article from saved if in has been added")
     public void removeArticleFromSavedIfItAdded() {
         if (this.isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON)) {
             this.waitForElementAndClick(
